@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Łowcy Komentarzy</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <style>
+        #generateButton{
+            width: 300px;
+            height: auto;
+            background-color: #007404; /* Green */
+            border: none;
+            color: rgb(255, 255, 255);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            font-family: Roboto, sans-serif;
+            font-weight: 800;
+            transition-duration: 0.4s;
+            border-radius: 5px;
+            border: 0px solid rgb(255, 0, 0);
+        }
+        #generateButton:hover{
+            transition-duration: 0.4s;
+            background-color: #2dd332; /* Green */
+            color: rgb(238, 255, 0);
+        }
+        .row {
+            border: 0px solid #777;
+            margin: 5px;
+            padding: 0px;
+            padding-top: 4px;
+            display: flex;
+            vertical-align: top;
+            align-items: flex-start;
+        }
+        
+        .image-container {
+            width: 64px;
+            height: 100%;
+            margin-right: 10px;
+            border-radius: 16px;
+            vertical-align: top;
+        }
+        
+        .image-container img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        
+        .text-container {
+            flex-grow: 1;
+            padding: 0px;
+            border: 0px solid #777;
+        }
+        table {
+            padding-top: 5px;
+        }
+        td {
+            border: 0px solid #777;
+            font-family: 'Roboto', sans-serif;
+            color: rgb(42, 46, 46);
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .timeago{
+            font-family: 'Roboto', sans-serif;
+            color: rgb(73, 78, 88);
+            font-size: 12px;
+            font-weight: 500;
+            
+        }
+
+        .commentText {
+            padding-top: 7px;
+        }
+        .nick{
+            font-family: 'Roboto', sans-serif;
+            color: rgb(2, 135, 199);
+            font-size: 15px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .replyingTo {
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+            font-weight: 550;
+            text-decoration-color: rgb(73, 78, 88);
+            text-decoration-line: none;
+            text-decoration-style: solid;
+            text-decoration-thickness: auto;
+            display: inline-block;
+        }
+        .replyBlock{
+            display: inline-block;
+            color: rgb(73, 78, 88);
+            font-family: Roboto, sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 14px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .share{
+            color: rgb(101, 108, 122);
+            font-family: Roboto, sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 15px;
+        }
+        .likes{
+            color: rgb(42, 46, 46);
+            font-family: Roboto, sans-serif;
+            font-size: 12px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 12px;
+        }
+        .likesImage{
+        }
+        .additional-row {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+        
+        .additional-row div {
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .additional-row img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <button id="generateButton">Generate quality content</button>
+    <div id="contentContainer"></div>
+
+<script>
+var names = [
+    "TypowyLowca329",
+    "GerwantZRivii",
+    "Klocmen",
+    "Rzulwik1998",
+    "Andrzje08",
+    "kryspin040599",
+    "mirax66666",
+    "Wladca_Internetu",
+    "KozackiNick2",
+    "GramWgry420",
+    "Juzef",
+    "sbgsdk3r22111",
+    "nbvds212g3bgbbb",
+    "GollumElitarny",
+    "mocny-full",
+    "szymek_prazynek",
+    "progamer_PL",
+    "irytator1000",
+    "Weglowodan",
+    "AlergikAlergik",
+    "InstalacjaResuscytacja",
+    "wonsata glizda",
+    "geriatryczne_objawienie_roku",
+    "welociRaptor1977",
+    "ZupkaPomidorowaWProszku",
+    "1980miloszek",
+    "CezarPazur4754363",
+    "kukurykunapatyku",
+    "Ziutek1908",
+    "ArkaGdynia7",
+    "fan_boy_78",
+    "maksiu_sraksiu",
+    "BendyktKuczuczamber",
+    "oshomaishi_kobayashi",
+    "Nono Kuri Kyomakuni San",
+    "Sensei Okko Emiko Kaori",
+    "LeMemeLord761",
+    "Kato Sayuri",
+    "ToshiriKazuhiko",
+    "reeeeeeeee1234",
+    "trollFace198999"
+]
+var avatars = [
+    "images/avatar1.jpg", "images/avatar2.png", "images/avatar3.png", "images/avatar4.png", "images/avatar5.png",
+    "images/avatar6.png", "images/avatar7.png", "images/avatar8.png", "images/avatar9.png", "images/avatar10.png",
+    "images/avatar11.png",
+    "images/avatar12.png",
+    "images/avatar13.png",
+    "images/avatar14.png",
+    "https://static.wikia.nocookie.net/totalwar-ar/images/d/df/Konfederacja.png",
+    "https://purepng.com/public/uploads/large/purepng.com-stalinstalinjoseph-vissarionovich-stalinpolitical-leaderdictatorsoviet-union-17015280840050enmw.png",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://i.ytimg.com/an/ctDDK8Bwn5BqxFm--up8Ag/featured_channel.jpg",
+    "https://c.disquscdn.com/uploads/users/36558/2860/avatar200.jpg",
+    "https://c.disquscdn.com/uploads/users/38824/6066/avatar200.jpg?1691655115",
+    "https://c.disquscdn.com/uploads/users/38311/9430/avatar200.jpg?1686320832",
+    "https://a.disquscdn.com/1691537568/images/noavatar128.png",
+    "https://p0.pxfuel.com/preview/965/327/642/avatar-people-person-business.jpg",
+    "https://freerangestock.com/sample/118827/game-pad-vector-icon.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/NES-Console-Set.png/640px-NES-Console-Set.png",
+    "https://e7.pngegg.com/pngimages/413/225/png-clipart-contra-3d-mega-man-contra-iii-the-alien-wars-super-mario-bros-others-text-super-mario-bros.png",
+    "https://www.publicdomainpictures.net/pictures/180000/nahled/hand-pointing-out.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/1/1f/Human_head.svg",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtBucDU_wI_15RXdl8zj3hPjkqIuDtOSnPJw&usqp=CAU",
+    "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA1L2pvYjk2NS1lbGVtZW50LTE4NV8yLmpwZw.jpg",
+    "https://images.pexels.com/photos/13340061/pexels-photo-13340061.jpeg",
+    "https://assets.stickpng.com/images/580b57fcd9996e24bc43c32a.png",
+    "https://www.freeiconspng.com/thumbs/pokemon-png/render-pokemon-png-1.png",
+    "https://pngimg.com/d/naruto_PNG19.png",
+    "https://www.pngmart.com/files/22/Naruto-Download-PNG-Image.png",
+
+];
+
+const stupidStrings = [
+    "Bez sensu. Jurz wszystkie gry z promki mam",
+    "XDDDDDDdddddddd CO TO",
+    "lol kupie jak bendzie za 20 zl",
+    "to jest strona z promocjami czy z zartami?????",
+    "nawed za 1 zł niewarto",
+    "🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮🤮",
+    "ale guwno XDD",
+    "xbox lepszy",
+    "Dla kogo niby t a promocnja?",
+    "ktoś w to gra wogule?????",
+    "ale mi promocja, w 2014 kupilem to o 4 zl taniej",
+    "Hahahaha w sklepie xbox na region arguentyna jest leprza cena",
+    "lel",
+    "xDDDD",
+    "poczekam aż na epicu bedzie za darmo",
+    "za darmo to uczciwa cena :D ;dD:D :D :D ale to to nie!!",
+    "a na co komu konsola???",
+    "Gry za 300 ZL a teraz TO nawet mi was nie zal polaczki ;PPP",
+    "super a DLC jeszcze raz tyle hahaha",
+    "nie dziala ktos moze pomuc?",
+    "serio kogos to interesuje? byscie lepiej dali inne",
+    "to są ŁOWCY gier czy RECENZJE gier??",
+    "pojdzie na GTX 750?",
+    "sorki ze niezwiazane z tematem, ale kupowal ktos chromebook 80MG0002CF z tego posta 2 tyg temu?",
+    "to juz wole z pirate bey",
+    "Ma ktoś kod na pyszne?",
+    "Jak to zainstalować na Androidzie?",
+    "Czy to tylko mi się tak wydaje, ale gry nie są już takie dobre? Kiedyś włączyło się CONTRĘ albo MARIO i można było grać godzinami, a teraz wszędzie te DLC, PreOrdery i mulitplayer?? Nie można prościej??",
+    "poczekam na EGS",
+    "Humble skończył się na meat boyu",
+    "Kupiłem gamepass do 2029 hahaha a wy jazda płacić fr@jerzy",
+    "kupiłem 30 danio w żabce więc mam tak jakby za darmo :D",
+    "wolę takie na 2h bo można zrobić zwrot, gg xD",
+    "grubas Gaben by coś dał ma tyle kasy",
+    "gra warta teraz 4 zł",
+    "co to za textury, wy to widzicie?",
+    "remember no proerders",
+    "Przez vpn taniej",
+    "no i nuda po 1szym meczu mozna kazdą gre multi uninstal lub SHIFT + DEL i potem enter :)",
+    "kazda gra multi = rak = cziterzy = granie bez celu = brak fabuly = cieagle to samo = bezsens :)",
+    "#nikogo",
+    "Rakowe multi #nikogo...",
+    "cionkle ktos mi moje komentarze usuwa...",
+    "Jak RT ma psuc gry zmieniając modele i tekstury to ja podziekuje za taki szajs, to ma zmieniac tylko oswietlenie a nie cała gre psuc xD",
+    "ale bullszit - rtx on zmienia tekstury szescianów",
+    "po co ci karta do FHD za 9k... bo to przecierz tylko interpoluje FHD do 4k to dlss, bo bez tego te kary są guano warte jak dasz 4k + RT on + ultra + max aa - wtedy masz moze 20fpsow, a boski dlss naprawia i masz 60 fpsow, bo grasz defakto wtedy w gre we FHD nie 4k, bo dlss to interpoluje... a niestety widac roznice miedzy 4k a 4kdlss na niekorzysc tego drugiego :)",
+    "tylko klawiatura i myszka :)",
+    "haha niedługo to karty będą po 40k zł",
+    "polecam wszystkim symulator polaka -> Thief Simulator za 20zł :)",
+    "słabiutko",
+    "mehhh",
+    "E tam.",
+    "Nie chcę.",
+    "dobre multi to martwe multi :)",
+    "Gówno oferta 🤦‍♂️",
+    "?????? Kpina",
+    "Nie po polsku = NIE KUPUJĘ. Jesteśmy w POLSCE i mówimy po POLSKU, jak nas nie szanują to niech SP&#@!$!@ ze swojimi grami",
+    "Walicie tymi newsami 1 po drugim, weźcie na wstrzymanie tak z raz na tydzień",
+    "LOL miłego wypożyczania gier zobaczymy jaki płacz bedzie jak wam biblioteki znikną xDDDD",
+    "Skasujcie tego niusa, proszę was. Znam ludzi co takie rzeczy na inżynierkę robili.",
+    "kod VERYCHEAPGAMES obniża cenę o dodatkowe 29 gr",
+    "a idź pan z tym xd",
+    "to juz lepiej chyba pirata warto xD",
+    "Sonowcy niech się szykują na przejście na zieloną stronę mocy, bo to się skończy monopolem szczególnie jak cloud gaming nabierze rozpędu.",
+    "A po co to komu ? A dlaczego ?",
+    "Taka cena to powinna byc na premiere",
+    "Wszystko ciągle na tego gównianego Xboxa... Głupki z Microsoftu tylko smarują pieniędzmi by wymuszać kupno ich konsoli. A ja i tak nie kupię. Sorry nie stać mnie na 2 konsole nowej generacji.",
+    "Ty chyba nudy nie widziałeś bo nie grałeś w żadnego CODa, BFa, Fortnite'a ani w żadne inne multikulti barachło...",
+    "Twój komentarz to szybki test na inteligencję. Kto na własny rozum to sam zadecyduje i będzie wiedział co dla niego jest lepsze. Więc, jeśli będzie chciał kupić to kupi, a jeśli nie to nie kupi. I nie jest mu potrzebny żaden komentarz jakiegoś randoma z internetu.",
+    "Mam własny umysł i zdanie.",
+    "dla mnie śmieciem jest Xbox. Pójście w stronę durnych abonamentów. Żadnych ciekawych gier na wyłączność, a zamiast tego gra portfelem i wykupowanie znanych developerów. Pad który nie na obok siebie dwóch analogów.",
+    "Za drogo.",
+    "No i po co to komu?",
+    "Oby nigdy nie było taniej na PS4. Może w końcu ludziska przerzuciliby się na PS5. I albo przechodzisz na PS5 i masz taniej i lepiej albo zostajesz na PS4 i bulisz.",
+    "a moze jakies dobre gry, a nie gotiki? polscy gracze ;)",
+    "Kit, a nie hit. Po godzinie wywalone z dysku.",
+    "Bidoki znowu maja ból dupy, bo nie stac ich na gry nintendo.",
+    "stim dickowcy trzęsą gaciami, bo ich słaby kąkuter ma rywala. Tylko switch sie liczy, pamietajcie chlopcy.",
+
+
+
+
+
+];
+
+const stupidImages = [
+    "https://media.tenor.com/wIxFiobxxbIAAAAM/john-jonah-jameson-lol.gif",
+    "https://media.tenor.com/rtKFHEGpoPwAAAAM/meme-lang.gif",
+    "https://media.tenor.com/MNn5FOMIwUYAAAAC/shit-yuck.gif",
+    "https://media.tenor.com/QPdiKPXenz8AAAAC/elf-will-ferrell.gif",
+    "https://media.tenor.com/o2fFfVQr-KMAAAAM/funny-mr-bean.gif",
+    "https://media.tenor.com/xjZU_oZVSncAAAAC/the-office-michael-scott.gif",
+    "https://uploads.disquscdn.com/images/aa2ffb397c1e3ebbaf0d26e6532fe83af0b929587af95292066e374234023292.jpg"
+
+]
+
+const stupidResponses = [
+    "w łebb ty się p uknijh i twoja matka tez",
+    "zamknij sie wierdzmin 3 najlepszy",
+    "LOLLLLL",
+    "A Ty tworzysz własną projekcję wchodząc do pokoju, czy zostawiasz to komuś innemu? I czy jak się przewrócisz na chodniku to ją obalasz?",
+    "masz kmputer od wczoraj?",
+    "polacki i ich smieszne zarobki :)",
+    "ten cyberpunk to pazdzierz... :)",
+    "BO nie ma juz gier wartych uwagi, coraz wieksze szroty są...",
+    "skończ 10 lat i wyjmij rece z majtek i zobacz co sie dzieje dookola... ",
+    "dymaja ludzi od wiedzmina 1... cena gry podskoczyla bo stała sie ciut grywalna = od razu janusze czerwone muszą zarobic... nie tendy droga... oszusci zawsze pozostaną oszustami :)",
+    "0,99zł mozna dac nie wiecej :)",
+    "wspolczuje",
+    "czytanie prawdy boli widze dzieciaku :)",
+    "Ostatni raz ci powtarzam nie jestem ani chory ani głupi 134 IQ na teście u psychologa.",
+    "mówisz tak bo cie nie stać na iPhone'a",
+    "biedaki polaki cebulaki idą w zaparte xD",
+    "tylko pudełkowe",
+    "fachowiec się odezwał",
+    "Chyba ty",
+    "Tobie chyba płacą za te wysrywy",
+    "A co myśleliście, że za darmo wam dadzą te gry?",
+    "Skoro masz GTX 1060 to pewnie masz ten gówniany sprzęt jak monitor etc.",
+    "10k to grosze przecież chłopie. To nie jest karta tylko dla p0laka, a dla normalnych osób co zarabiają miesięcznie więcej niż 10k na zachodzie ;)",
+    "Wreszcie ludzie otwierają oczy. Szykuj się na ataki wściekłych wyznawców pary.",
+    "debilność kultu Steama który wciąż włada graczami pecetowymi.",
+    "Nie warto grać w MMORPG. Szkoda życia.",
+    "Śmiechy na bok, steamowcy są w stanie to kupować xd",
+    "bardzo dobrze... soniacze znowu sie obsrają bo nie odsprzedadzą xD",
+    "dzieciaku..... ty to mozesz mi wiesz.....",
+    "puknijcie sie w głowę",
+    "jak mediamarkt im nie da pieniedzy za reklame to nie wrzucali ;)",
+    "Widze, ze nie wszyscy mają na tyle wysokie iq, zeby załapać",
+    "złodzieje!"
+];
+const notStupidStrings = [
+    "Całkiem OK", "dzieki", "spoko", "Polecam", "Jedynka lepsza, ale za tę cenę warto.",
+    "Literówka w tytule :)", "Promocja się chyba już skończyła", "Dzięki!"
+];
+
+function getRandomString(array) {
+    console.log("Array: "+array);
+    const randomIndex = Math.floor(Math.random() * array.length);
+    const randomString = array.splice(randomIndex, 1)[0];
+    return randomString;
+}
+
+
+function resetStringCopies(){
+    avatarsCopy = [...avatars];
+    stupidStringsCopy = [...stupidStrings];
+    stupidResponsesCopy = [...stupidResponses];
+    stupidImagesCopy = [...stupidImages];
+    notStupidStringsCopy = [...notStupidStrings];
+    namesCopy = [...names];
+}
+
+document.getElementById("generateButton").addEventListener("click", function() {
+    const contentContainer = document.getElementById("contentContainer");
+    contentContainer.innerHTML = "";
+    resetStringCopies();
+    console.log(avatarsCopy);
+    console.log(avatars);
+
+    var previousAuthor = "";
+    for (let i = 1; i <= 10; i++) {
+        //Decide the type
+        const randomNumber = Math.floor(Math.random() * 100);
+        var isImage = false;
+        var isStupid = true;
+        var isResponse = false;
+        if (randomNumber < 70){ //Stupid standard
+            chosenArray = stupidStringsCopy;
+        }
+        else if(randomNumber < 92){//Stupid response
+            if (i > 1){
+                isResponse = true;
+                previousAuthor = randomizedAuthor;
+                chosenArray = stupidResponsesCopy;
+            }
+            else{
+                chosenArray = stupidStringsCopy;
+            }
+
+        }
+        else if(randomNumber < 97){//Stupid image
+            isImage = true;
+            chosenArray = stupidImagesCopy;
+        }
+        else{                      //Not stupid
+            isStupid = false;
+            chosenArray = notStupidStringsCopy;
+        }
+        randomizedAuthor = getRandomString(namesCopy);
+        //Build table
+        
+        //Div #1 - empty response space
+        const row = document.createElement("div");
+        row.classList.add("row");
+        if(isResponse){
+            const optionalImageContainer = document.createElement("div");
+            optionalImageContainer.classList.add("image-container");
+            row.appendChild(optionalImageContainer);
+        }
+
+        //Div #2 - Avatar
+        const mainImageContainer = document.createElement("div");
+        mainImageContainer.classList.add("image-container");
+        const mainImage = document.createElement("img");
+        mainImage.src = `${getRandomString(avatarsCopy)}`;
+        mainImageContainer.appendChild(mainImage);
+        row.appendChild(mainImageContainer);
+
+        const textContainer = document.createElement("div");
+        textContainer.classList.add("text-container");
+        const table = document.createElement("table");
+
+        //Row #1 - author & response target
+        const firstRow = table.insertRow(0);
+        
+        const cell1 = firstRow.insertCell(0);
+        cell1.textContent = randomizedAuthor;
+        cell1.classList.add("nick");
+        
+
+        if(isResponse){
+            const cell2 = firstRow.insertCell(1);
+            cell2.textContent = previousAuthor;
+            cell2.innerHTML = '<div class="replyingTo"><div class="replyBlock"><img src="resources/reply.png" width="16" height="16"></div><div class="replyBlock">'+previousAuthor+'</div></div>';
+            cell2.classList.add("replyingTo");
+
+        }
+        
+        //Row #2 - date & stuff
+        const secondRow = table.insertRow(1);
+        const mergedCell = secondRow.insertCell(0);
+        mergedCell.colSpan = 2;
+        mergedCell.textContent = "1 dzień temu";
+        mergedCell.classList.add("timeago");
+
+        //Row #3 - text
+        const thirdRow = table.insertRow(2);
+        const mergedCell2 = thirdRow.insertCell(0);
+        mergedCell2.colSpan = 2;
+        mergedCell2.classList.add("commentText")
+        if(isImage){
+            mergedCell2.innerHTML = "<img src='"+getRandomString(chosenArray)+"'></img>";
+        }
+        else{
+            mergedCell2.textContent = getRandomString(chosenArray);
+        }
+
+        //Row #4 - likes etc.
+        const fourthRow = table.insertRow(3);
+        const mergedCell3 = fourthRow.insertCell(0);
+        var randomizedLikes = 0;
+        var randomizedDislikes = 0;
+        if(isStupid){
+            randomizedLikes = Math.max(0, (Math.floor(Math.random() * 12) - 9));
+            randomizedDislikes = Math.max(0, (Math.floor(Math.random() * 12) - 3));
+        }
+        else{
+            randomizedLikes = Math.max(0, (Math.floor(Math.random() * 12)));
+            randomizedDislikes = Math.max(0, (Math.floor(Math.random() * 5) - 3));
+        }
+        
+        mergedCell3.colSpan = 2;
+        mergedCell3.innerHTML = '<div class="additional-row"><div class="likes"><img class="likesImage" src="https://c.disquscdn.com/next/embed/assets/img/like.855606fb4e3a7a6448e6c782f3f54e5a.svg" width="16" height="16">'+randomizedLikes+'</div><div class="likes"><img class="likesImage" src="https://c.disquscdn.com/next/embed/assets/img/dislike.612d8ba98928c381e4c789c1b309cda1.svg" width="16" height="16">'+randomizedDislikes+'</div><div class="share">Odpowiedz •</div><div class="share">Udostępnij ›</div></div>';
+
+
+        textContainer.appendChild(table);
+        row.appendChild(textContainer);
+
+        contentContainer.appendChild(row);
+        
+    }
+});
+</script>
+
+</body>
+</html>
