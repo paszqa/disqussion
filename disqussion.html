@@ -123,8 +123,6 @@
             font-weight: 600;
             line-height: 12px;
         }
-        .likesImage{
-        }
         .additional-row {
             display: flex;
             align-items: center;
@@ -192,7 +190,39 @@ var names = [
     "Kato Sayuri",
     "ToshiriKazuhiko",
     "reeeeeeeee1234",
-    "trollFace198999"
+    "trollFace198999",
+    "Jajo9393",
+    "Mr Expert",
+    "FuzaGuzaElo",
+    "MacaronoEnono",
+    "RzeznikBlaviken",
+    "Mezopotamia_7",
+    "DreamsAreForever",
+    "VelvetArgonian",
+    "CarnageSNK",
+    "SoyOmnnom",
+    "szekal",
+    "zuczek_zuczkowski",
+    "CRT7312",
+    "Acer27edc9521",
+    "User5749045623523",
+    "lekarz....",
+    "UluMuluStarcraft__",
+    "Quake4Year_",
+    "przesliczna_filatelistka_lalala",
+    "G3T_F0RK3D",
+    "Baruch_Spinoza_Metamorfoza",
+    "_jan___dzban_",
+    "anyway420yo",
+    "marchefffffffff",
+    "Czyscik Mikrofibrowy",
+    "helmut helmut",
+    "mujahideen fan",
+    "Uprzejmy Oracz Systemu",
+    "Wielokrotnosc_pierwiastka_z_2",
+    "manly_beetroot",
+    "ofCourseIamRight",
+    "Hunters of Games Com"
 ]
 var avatars = [
     "images/avatar1.jpg", "images/avatar2.png", "images/avatar3.png", "images/avatar4.png", "images/avatar5.png",
@@ -229,7 +259,6 @@ var avatars = [
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtBucDU_wI_15RXdl8zj3hPjkqIuDtOSnPJw&usqp=CAU",
     "https://images.rawpixel.com/image_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTA1L2pvYjk2NS1lbGVtZW50LTE4NV8yLmpwZw.jpg",
     "https://images.pexels.com/photos/13340061/pexels-photo-13340061.jpeg",
-    "https://assets.stickpng.com/images/580b57fcd9996e24bc43c32a.png",
     "https://www.freeiconspng.com/thumbs/pokemon-png/render-pokemon-png-1.png",
     "https://pngimg.com/d/naruto_PNG19.png",
     "https://www.pngmart.com/files/22/Naruto-Download-PNG-Image.png",
@@ -315,7 +344,9 @@ const stupidStrings = [
     "Kit, a nie hit. Po godzinie wywalone z dysku.",
     "Bidoki znowu maja ból dupy, bo nie stac ich na gry nintendo.",
     "stim dickowcy trzęsą gaciami, bo ich słaby kąkuter ma rywala. Tylko switch sie liczy, pamietajcie chlopcy.",
-
+    "\"Sapacze\" się już rzucili co widać po recenzjach",
+    "Ale sie malpy rzucily Gracze zawsze przypomna ze nie sa powaznym community lol",
+    "to jest tanio? Nie róbcie sobie jaj."
 
 
 
@@ -366,15 +397,22 @@ const stupidResponses = [
     "puknijcie sie w głowę",
     "jak mediamarkt im nie da pieniedzy za reklame to nie wrzucali ;)",
     "Widze, ze nie wszyscy mają na tyle wysokie iq, zeby załapać",
-    "złodzieje!"
+    "złodzieje!",
+    "chodzi żeby się tylko przypierdzielić...",
+    "E tam, kupione dawno temu",
+    "chyba tylko w Japonii..",
+    "A wiesz ile mnie twoje narzekające zdanie obchodzi? Zgadnij. Każdy ma swoje zdanie. ",
+    "Ciagle mysle o tobie? Po prostu twój komentarz byl na tyle ehm \"ciekawy\" ze zapadl mi w pamiec lol",
+    "jak nie wiesz, to trudno. Ty =//= reszta świata"
 ];
 const notStupidStrings = [
     "Całkiem OK", "dzieki", "spoko", "Polecam", "Jedynka lepsza, ale za tę cenę warto.",
-    "Literówka w tytule :)", "Promocja się chyba już skończyła", "Dzięki!"
+    "Literówka w tytule :)", "Promocja się chyba już skończyła", "Dzięki!", "Lecę po popcorn.", "Oj będzie się działo",
+    "Czekam tylko na komentarze :D"
 ];
 
 function getRandomString(array) {
-    console.log("Array: "+array);
+    //console.log("Array: "+array);
     const randomIndex = Math.floor(Math.random() * array.length);
     const randomString = array.splice(randomIndex, 1)[0];
     return randomString;
